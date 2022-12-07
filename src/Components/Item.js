@@ -4,7 +4,7 @@
         <div className="p-3">{props.txt}</div>
         <button className="btn btn-danger p-2 h-50"
         onClick={()=> props.delFunc(props.id)}
-        >Suprrimer</button>
+        >Delete</button>
      </li>
    )
  }

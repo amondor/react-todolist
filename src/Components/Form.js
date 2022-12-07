@@ -9,6 +9,8 @@ export default function Form(){
         {txt: "Sport", id: uuidv4()},
         {txt: "Coder une app react" ,id: uuidv4()},
     ])
+
+    const [stateInput , setStateInput] = useState();
     const deleteElement = id => {
        // console.log(id);
         const FilteredState = dataArr.filter(item => {
@@ -16,19 +18,40 @@ export default function Form(){
         })
         setDataArr (FilteredState)
     }
-
+    const addTodo = e => {
+        e.preventDefault();
+        const newArr = [...dataArr]
+        
+        const newTodo = {};
+        newTodo.txt = stateInput;
+        newTodo.id = uuidv4()
+        
+        newArr.push(newTodo);
+        setDataArr(newArr);
+        
+        setStateInput('');
+        
+    }
+    const linkedInput = e => {
+       setStateInput(e)
+    }
     return (
         <div className="m-auto px-4 col-12 col-sm-10 col-lg-6">
 
-            <form  className="mb-3">
-                <label htmlFor="todo" className="form-lael mt-3">Chose à 
-                faire</label>
-                <input type="text" className="form-control" id="todo"/>
+            <form  onSubmit={ e=> addTodo(e)} className="mb-3">
+                <label htmlFor="todo" className="form-lael mt-3">Things to do</label>
+                <input 
+                value={stateInput}
+                onInput={e => linkedInput(e.target.value)}
+                type="text" 
+                className="form-control" 
+                id="todo"
+                />
 
-                <button className="mt-2 btn btn-primary d-block">Envoyez</button>
+                <button className="mt-2 btn btn-primary d-block">Add</button>
             </form>
 
-            <h2>List des choses à faire :</h2>
+            <h2>List of things to do: </h2>
             <ul className="list-group">
                {dataArr.map((item) =>{
                     return(
